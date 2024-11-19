@@ -141,10 +141,11 @@ const ProductList = () => {
         </tbody>
       </table>
 
-      {!isLoading  && (
+      {(
         <Pagination
           links={data?.links}
           meta={data?.meta}
+          met={data?.meta}
           updateFetchUrl={updateFetchUrl}
         />
       )}
