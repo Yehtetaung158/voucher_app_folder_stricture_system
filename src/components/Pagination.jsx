@@ -1,4 +1,5 @@
-import React from "react";
+import { set } from "lodash";
+import React, { useState } from "react";
 import { HiArrowLeft, HiArrowLongLeft, HiArrowRight } from "react-icons/hi2";
 import {
   MdDoubleArrow,
@@ -7,6 +8,7 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
+import { useSearchParams } from "react-router-dom";
 
 const Pagination = ({
   links: { prev, next, last, first } = {
@@ -16,18 +18,32 @@ const Pagination = ({
     first: null,
   },
   // meta: { total, to, from, links },
-  meta: { total, to, from, links,current_page,last_page } = {
+  meta: { total, to, from, links, current_page, last_page, path } = {
     total: null,
     to: null,
     from: null,
     current_page: null,
     last_page: null,
     links: [],
+    path: "",
   },
   met,
   updateFetchUrl,
 }) => {
-  console.log(met);
+  console.log(first);
+  const pageLimits = [5, 10, 25, 50, 100];
+  const [currentLimit, setCurrentLimit] = useState(5);
+  const [params, setParams] = useSearchParams();
+
+  const handleRowLimitSelect = (e) => {
+    setCurrentLimit(e.target.value);
+    setParams({ limit: Number(e.target.value) });
+    const currentLimit = Number(e.target.value) ?? 5;
+    updateFetchUrl(
+      `${import.meta.env.VITE_API_URL}/products?limit=${currentLimit}`
+    );
+  };
+  console.log(currentLimit);
   return (
     <div className="flex justify-between items-center px-6">
       {/* Help text */}
@@ -37,7 +53,33 @@ const Pagination = ({
       </span>
       {/* Buttons */}
       <div className=" flex gap-2 justify-center items-center">
-        <div className="text-sm text-gray-700 dark:text-gray-400">Showing <b>{current_page ?? 0}</b> page of <b>{last_page ?? 0}</b> pages</div>
+        <div className=" flex items-center gap-2">
+          <label
+            htmlFor="countries"
+            className="block text-gray-700 text-sm text-nowrap dark:text-white"
+          >
+            Rows per page
+          </label>
+          <select
+            onChange={handleRowLimitSelect}
+            className="flex items-center justify-center h-10 text-sm font-medium border-y border rounded-lg border-gray-200  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:pointer-events-none"
+            value={currentLimit}
+          >
+            {pageLimits.map(
+              (limit, index) =>
+                limit <= total && (
+                  <option key={index} value={limit}>
+                    {limit}
+                  </option>
+                )
+            )}
+            {total && <option value={total}>All ({total})</option>}
+          </select>
+        </div>
+        <div className="text-sm text-gray-700 dark:text-gray-400">
+          Showing <b>{current_page ?? 0}</b> page of <b>{last_page ?? 0}</b>{" "}
+          pages
+        </div>
         <div className="inline-flex mt-2 xs:mt-0">
           <button
             onClick={() => updateFetchUrl(first)}
