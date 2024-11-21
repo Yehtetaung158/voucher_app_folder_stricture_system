@@ -1,4 +1,4 @@
-import { set } from "lodash";
+import { get, set } from "lodash";
 import React, { useState } from "react";
 import { HiArrowLeft, HiArrowLongLeft, HiArrowRight } from "react-icons/hi2";
 import {
@@ -11,6 +11,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 
 const Pagination = ({
+  moduleName,
   links: { prev, next, last, first } = {
     prev: null,
     next: null,
@@ -30,8 +31,7 @@ const Pagination = ({
   met,
   updateFetchUrl,
 }) => {
-  console.log(first);
-  const pageLimits = [5, 10, 25, 50, 100];
+  const pageLimits = [5, 10, 25, 50, 100, 150, 200];
   const [currentLimit, setCurrentLimit] = useState(5);
   const [params, setParams] = useSearchParams();
 
@@ -40,10 +40,9 @@ const Pagination = ({
     setParams({ limit: Number(e.target.value) });
     const currentLimit = Number(e.target.value) ?? 5;
     updateFetchUrl(
-      `${import.meta.env.VITE_API_URL}/products?limit=${currentLimit}`
+      `${import.meta.env.VITE_API_URL}/${moduleName}?limit=${currentLimit}`
     );
   };
-  console.log(currentLimit);
   return (
     <div className="flex justify-between items-center px-6">
       {/* Help text */}

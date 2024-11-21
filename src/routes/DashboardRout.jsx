@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import ProductRoute from "./ProductRoute";
 import DashboardLaoud from "../features/dashboard/components/DashboardLaoud";
 import DashboardPage from "../features/dashboard/pages/DashboardPage";
+import VoucherRoute from "./VoucherRoute";
 
 const DashboardLaoudRoute = [
   {
@@ -13,6 +14,7 @@ const DashboardLaoudRoute = [
         element: <DashboardPage />,
       },
       ...ProductRoute,
+      ...VoucherRoute,
     ],
   },
 ];

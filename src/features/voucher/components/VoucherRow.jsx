@@ -1,0 +1,84 @@
+import React, { useState } from "react";
+import { MdDeleteOutline } from "react-icons/md";
+import { PiPencil } from "react-icons/pi";
+import { pulsar } from "ldrs";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import useSWR, { useSWRConfig } from "swr";
+import { useCookies } from "react-cookie";
+import { deleteFetcher } from "../../../services/voucher";
+import { HiMenu } from "react-icons/hi";
+import { BiDetail } from "react-icons/bi";
+
+pulsar.register();
+
+const VoucherRow = ({
+  item: { id, customer_name, customer_email, created_at },
+  index,item
+}) => {
+  const [token] = useCookies(["token"]);
+  const date = new Date(created_at);
+  const optionsDate = { day: "numeric", month: "short", year: "numeric" };
+  const optionsTime = { hour: "numeric", minute: "numeric", hour12: true };
+  const formattedDate = date.toLocaleDateString("en-GB", optionsDate);
+  const formattedTime = date.toLocaleTimeString("en-GB", optionsTime);
+
+  const [isDeleting, setIsDeleting] = useState(false);
+  const nav = useNavigate();
+  const { mutate } = useSWRConfig();
+
+  const handleDeleteBtn = async () => {
+    setIsDeleting(true);
+    const response = await deleteFetcher(id)
+    if (response.status === 200) {
+      const json = await response.json();
+      toast.success(json.message);
+      mutate(`${import.meta.env.VITE_API_URL}/vouchers`);
+      setIsDeleting(false);
+    } else {
+      const errorMessage = await response.json();
+      toast.error(errorMessage.message);
+    }
+  };
+
+  return (
+    <>
+      <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+        <td className="px-6 py-4">{index + 1}</td>
+        <th
+          scope="row"
+          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          {customer_name}
+        </th>
+        <td className="px-6 py-4">{customer_email}</td>
+        <td className="px-6 py-4">
+          <p className="text-xs">{formattedDate}</p>
+          <p className="text-xs">{formattedTime}</p>
+        </td>
+        <td className="px-6 py-4">
+          <div className="font-lg text-blue-600 dark:text-blue-500 hover:underline flex gap-1.5">
+            <button
+              onClick={() => nav(`/dashboard/voucher/detail/${id}`)}
+              className="border text-lg size-8 flex justify-center items-center"
+            >
+              <BiDetail />
+            </button>
+            <button
+              onClick={handleDeleteBtn}
+              className="border text-lg text-red-600 size-8 flex justify-center items-center"
+            >
+              {isDeleting ? (
+                <l-pulsar size="20" speed="1.75" color="red"></l-pulsar>
+              ) : (
+                <MdDeleteOutline />
+              )}
+            </button>
+          </div>
+        </td>
+      </tr>
+    </>
+  );
+};
+
+export default VoucherRow;

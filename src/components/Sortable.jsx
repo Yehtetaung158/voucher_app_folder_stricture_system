@@ -1,7 +1,9 @@
 import React from "react";
 import { LuChevronDown, LuChevronUp } from "react-icons/lu";
+import { useSearchParams } from "react-router-dom";
 
 const Sortable = ({ children, handleSort, sort_by, align }) => {
+  const [params, setParams]=useSearchParams();
   return (
     <div
       className={`flex items-center gap-1 ${
@@ -14,6 +16,7 @@ const Sortable = ({ children, handleSort, sort_by, align }) => {
           onClick={handleSort.bind(null, {
             sort_by: sort_by,
             sort_direction: "asc",
+            limit: Number(params.get('limit')) ?? 5,
           })}
         >
           <LuChevronUp />
@@ -23,6 +26,7 @@ const Sortable = ({ children, handleSort, sort_by, align }) => {
           onClick={handleSort.bind(null, {
             sort_by: sort_by,
             sort_direction: "desc",
+            limit: Number(params.get('limit')) ?? 5,
           })}
         >
           <LuChevronDown />

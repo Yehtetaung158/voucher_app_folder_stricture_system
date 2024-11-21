@@ -3,7 +3,6 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 import useSWR from "swr";
 import ProductEmptyState from "./ProductEmptyState";
-import ProductRow from "./ProductRow";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { debounce } from "lodash";
 import { HiX } from "react-icons/hi";
@@ -11,13 +10,14 @@ import ProductTableLoader from "./ProductTableLoader";
 import Pagination from "../../../components/Pagination";
 import { fetcher } from "../../../services/product";
 import Sortable from "../../../components/Sortable";
+import VoucherRow from "./VoucherRow";
 
-const ProductList = () => {
+const VoucherList = () => {
   const locatin = useLocation();
   const [params, setParams] = useSearchParams();
   const serRef = useRef();
   const [fetchUrl, setFetchUrl] = useState(
-    `${import.meta.env.VITE_API_URL}/products${locatin.search}`
+    `${import.meta.env.VITE_API_URL}/vouchers${locatin.search}`
   );
 
   const { data, isLoading } = useSWR(fetchUrl, fetcher);
@@ -26,11 +26,11 @@ const ProductList = () => {
     if (e.target.value) {
       setParams({ q: e.target.value });
       setFetchUrl(
-        `${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`
+        `${import.meta.env.VITE_API_URL}/vouchers?q=${e.target.value}`
       );
     } else {
       setParams({});
-      setFetchUrl(`${import.meta.env.VITE_API_URL}/products`);
+      setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers`);
     }
   }, 500);
 
@@ -38,7 +38,7 @@ const ProductList = () => {
     if (serRef.current) {
       serRef.current.value = "";
       serRef.current.focus();
-      setFetchUrl(`${import.meta.env.VITE_API_URL}/products`);
+      setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers`);
       setParams({});
     }
   };
@@ -55,7 +55,7 @@ const ProductList = () => {
     console.log(sortData);
     const sortParams = new URLSearchParams(sortData).toString();
     setParams(sortData);
-    setFetchUrl(`${import.meta.env.VITE_API_URL}/products?${sortParams}`);
+    setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers?${sortParams}`);
   };
 
 
@@ -94,7 +94,7 @@ const ProductList = () => {
             type="button"
           >
             <span className="sr-only">Action button</span>
-            Add New Product
+            Add New Voucher
             <FaPlus />
           </Link>
         </div>
@@ -109,13 +109,13 @@ const ProductList = () => {
             </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"product_name"} >
-              Product name
+            <Sortable handleSort={handleSort} sort_by={"customer_name"} >
+              Customer Name
             </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"price"} >
-              Price
+            <Sortable handleSort={handleSort} sort_by={"customer_email"} >
+              Email
             </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
@@ -135,7 +135,7 @@ const ProductList = () => {
             </>
           ) : (
             data?.data?.map((item, index) => (
-              <ProductRow key={item.id} item={item} index={index} />
+              <VoucherRow key={item.id} item={item} index={index} />
             ))
           )}
         </tbody>
@@ -143,7 +143,7 @@ const ProductList = () => {
 
       {(
         <Pagination
-          moduleName={"products"}
+          moduleName={"vouchers"}
           links={data?.links}
           meta={data?.meta}
           met={data?.meta}
@@ -154,4 +154,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default VoucherList;
