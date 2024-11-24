@@ -1,25 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/useUserStore";
 import { useCookies } from "react-cookie";
 
 const LogOutBtn = () => {
   const navigate = useNavigate();
-  const { user, removeUser } = useUserStore();
+  const { removeUser } = useUserStore();
   const [cookies, , removeCookie] = useCookies(["user", "token"]);
 
-  const userFromCookie = cookies.user ?? null;
+  // Access cookies and handle default value
+  const userFromCookie = cookies.user;
 
+  // Handle the logout process
   const handleLogout = () => {
     removeCookie("user");
     removeCookie("token");
-    // removeUser();
+    // removeUser(); // Make sure to actually remove the user from the store
   };
-  if(!userFromCookie){  
-    navigate("/");
-  }
 
-  // console.log("userFromCookie", userFromCookie);
+  useEffect(() => {
+    if (!userFromCookie) {
+      navigate("/"); // Navigate to home if no user found in cookies
+    }
+  }, [userFromCookie, navigate]);
 
   return (
     <button
@@ -32,3 +35,4 @@ const LogOutBtn = () => {
 };
 
 export default LogOutBtn;
+
