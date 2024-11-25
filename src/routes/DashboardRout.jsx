@@ -1,8 +1,10 @@
-import React, { Suspense } from "react";
+import React, {lazy, Suspense } from "react";
 import ProductRoute from "./ProductRoute";
 import DashboardLaoud from "../features/dashboard/components/DashboardLaoud";
-import DashboardPage from "../features/dashboard/pages/DashboardPage";
+const DashboardPage = lazy(() => import("../features/dashboard/pages/DashboardPage"));
 import VoucherRoute from "./VoucherRoute";
+import SaleRoute from "./SaleRoute";
+import UserRoute from "./UserRoute";
 
 const DashboardLaoudRoute = [
   {
@@ -15,6 +17,8 @@ const DashboardLaoudRoute = [
       },
       ...ProductRoute,
       ...VoucherRoute,
+      ...SaleRoute,
+      ...UserRoute,
     ],
   },
 ];

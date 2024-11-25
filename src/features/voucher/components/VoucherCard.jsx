@@ -7,14 +7,12 @@ import useSWR from "swr";
 
 const VoucherCard = () => {
   const [token] = useCookies(["token"]);
-  console.log(token);
   const { id } = useParams();
   const fetcher = (url) => fetch(url,  { headers: { Authorization: `Bearer ${token.token}` } }).then((res) => res.json());
   const { data, isLoading, error } = useSWR(
     import.meta.env.VITE_API_URL + "/vouchers/" + id,
     fetcher
   );
-  console.log("I am data", data);
 
   const handlePrint = () => {
     printJS({

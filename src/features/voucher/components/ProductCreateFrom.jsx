@@ -21,7 +21,6 @@ const ProductCreateFrom = () => {
   } = useForm();
 
   const handleForm = async (data) => {
-    console.log(data)
     setIsSending(true);
     await createFetcher({products_name:data.products_name,price:data.price});
     reset();

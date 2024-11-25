@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/useUserStore";
 import { useCookies } from "react-cookie";
+import { remove } from "lodash";
 
 const LogOutBtn = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const LogOutBtn = () => {
   const handleLogout = () => {
     removeCookie("user");
     removeCookie("token");
+    removeUser();
     // removeUser(); // Make sure to actually remove the user from the store
   };
 

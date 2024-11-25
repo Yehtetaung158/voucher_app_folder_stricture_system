@@ -52,7 +52,6 @@ const ProductList = () => {
   };
 
   const handleSort = (sortData) => {
-    console.log(sortData);
     const sortParams = new URLSearchParams(sortData).toString();
     setParams(sortData);
     setFetchUrl(`${import.meta.env.VITE_API_URL}/products?${sortParams}`);

@@ -7,38 +7,41 @@ import { useCookies } from "react-cookie";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser, removerUser } = useUserStore(); 
-  const [cookies, setCookie, removeCookie] = useCookies(["user", "token"]); 
+  // const [cookies, setCookie, removeCookie] = useCookies(["user", "token"]); 
 
-  const userCookies = cookies.user || null; 
-  useEffect(() => {
-    if (userCookies) {
-      setUser({ user: userCookies }); 
-    } else {
-      setUser({ user: null });
-    }
-  }, [userCookies, setUser]); 
+
+
+  // const userCookies = cookies.user || null; 
+  // useEffect(() => {
+  //   if (userCookies) {
+  //     setUser({ user: userCookies }); 
+  //   } else {
+  //     setUser({ user: null });
+  //   }
+  // }, [userCookies, setUser]); 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLogout = () => {
-    removeCookie("user");
-    removeCookie("token");
-    removerUser();
-  };
+  // const handleLogout = () => {
+  //   removeCookie("user");
+  //   removeCookie("token");
+  //   removerUser();
+  // };
+
 
   const UserProfile = () => (
     <div className="flex gap-5 items-center">
       <img
         className="size-12 rounded-full"
         src={
-          user?.user?.profile_image ||
+          user?.profile_image ||
           "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
         }
         alt="user profile"
       />
       <div>
-        <h1 className="text-3xl font-bold">{user?.user?.name}</h1>
+        <h1 className="text-3xl font-bold">{user?.name}</h1>
       </div>
     </div>
   );
@@ -63,7 +66,7 @@ const Header = () => {
       >
         Contact
       </NavLink>
-      {user?.user && (
+      {user && (
         <NavLink
           to="/dashboard"
           className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 lg:hover:bg-transparent"
@@ -86,7 +89,7 @@ const Header = () => {
     <header>
       <nav className=" bg- border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 flex justify-between items-center">
         <div className="flex flex-wrap justify-between items-center w-full">
-          {userCookies || user?.user ? (
+          {user ? (
             <UserProfile />
           ) : (
             <div className="flex items-center lg:order-2">

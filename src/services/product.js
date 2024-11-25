@@ -26,7 +26,6 @@ export const deleteFetcher = async (id) =>
   });
 
 export const productEdit = async (id, product_name, price) => {
-  console.log(product_name);
   return await fetch(`${import.meta.env.VITE_API_URL}/products/${id}`, {
     method: "PUT",
     headers: {

@@ -16,14 +16,14 @@ const Header = () => {
             <img
               className="size-12 rounded-full"
               src={
-                user?.user?.profile_image ||
+                user?.profile_image ||
                 "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
               }
               alt="user profile"
             />
 
             <div>
-              <h1 className=" text-3xl font-bold">{user?.user?.name}</h1>
+              <h1 className=" text-3xl font-bold">{user?.name}</h1>
               {/* <p className=" text-stone-500">Unknown</p> */}
             </div>
           </div>

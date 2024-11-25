@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { lazy } from "react";
-import ProductListPage from "../features/product/pages/ProductListPage";
-import ProductCreatePage from "../features/product/pages/ProductCreatePage";
-import ProductEditPage from "../features/product/pages/ProductEditPage";
+const ProductListPage = lazy(() => import("../features/product/pages/ProductListPage"));
+const ProductCreatePage = lazy(() => import("../features/product/pages/ProductCreatePage"));
+const ProductEditPage = lazy(() => import("../features/product/pages/ProductEditPage"));
 
 const ProductRoute = [
   {

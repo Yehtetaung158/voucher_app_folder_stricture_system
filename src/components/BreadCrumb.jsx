@@ -20,7 +20,6 @@ const BreadCrumb = ({ currentPage, links }) => {
           </li>
           {links &&
             links.map((i, index) => (
-              console.log(i.path),
               <Link
                 key={index}
                 

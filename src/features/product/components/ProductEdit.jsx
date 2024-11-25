@@ -11,7 +11,6 @@ import { productEdit } from "../../../services/product";
 pulsar.register();
 
 const ProductEdit = ({ id }) => {
-  console.log(id);
   const notify = () => toast.success("Product Upadate is successfully");
   const [isSending, setIsSending] = useState(false);
   const nav = useNavigate();
@@ -41,10 +40,8 @@ const ProductEdit = ({ id }) => {
       toast.success("Product update successfully");
     } catch (error) {
       toast.error("An error occurred while updating the product.");
-      console.error("Error:", error);
     } finally {
       setIsSending(false);
-      console.log("back", back);
       if (back) {
         nav("/dashboard/products");
       }

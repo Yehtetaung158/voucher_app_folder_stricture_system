@@ -1,7 +1,8 @@
-import React from "react";
-import HomePage from "../features/public/Pages/HomePage";
-import AboutPage from "../features/public/Pages/AboutPage";
-import ContactPage from "../features/public/Pages/ContactPage";
+import React, { lazy, Suspense } from "react";
+const HomePage = lazy(() => import("../features/public/Pages/HomePage"));
+const AboutPage = lazy(() => import("../features/public/Pages/AboutPage"));
+const ContactPage = lazy(() => import("../features/public/Pages/ContactPage"));
+
 
 const PublicRouter = [
     {

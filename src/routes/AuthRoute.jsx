@@ -1,12 +1,13 @@
-import React, { Suspense } from "react";
-import LoginPage from "../features/auth/pages/LoginPage";
-import RegisterPage from "../features/auth/pages/RegisterPage";
+import React, { lazy, Suspense } from "react";
+import PageLoading from "../components/PageLoading";
+const LoginPage = lazy(() => import("../features/auth/pages/LoginPage"));
+const RegisterPage = lazy(() => import("../features/auth/pages/RegisterPage"));
 
 const AuthRoute = [
   {
     path: "login",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoading/>}>
         <LoginPage />
       </Suspense>
     ),
@@ -14,7 +15,7 @@ const AuthRoute = [
   {
     path: "register",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoading/>}>
         <RegisterPage />
       </Suspense>
     ),
