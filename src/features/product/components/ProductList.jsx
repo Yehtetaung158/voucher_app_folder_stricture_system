@@ -57,7 +57,6 @@ const ProductList = () => {
     setFetchUrl(`${import.meta.env.VITE_API_URL}/products?${sortParams}`);
   };
 
-
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div className="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 px-2 bg-white dark:bg-gray-900 mb-3">
@@ -103,22 +102,22 @@ const ProductList = () => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"id"} >
-              #
-            </Sortable>
+              <Sortable handleSort={handleSort} sort_by={"id"}>
+                #
+              </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"product_name"} >
-              Product name
-            </Sortable>
+              <Sortable handleSort={handleSort} sort_by={"product_name"}>
+                Product name
+              </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"price"} >
-              Price
-            </Sortable>
+              <Sortable handleSort={handleSort} sort_by={"price"}>
+                Price
+              </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-              Create_at
+              Created at
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -129,26 +128,27 @@ const ProductList = () => {
           {isLoading ? (
             <ProductTableLoader loadingRow={5} />
           ) : data?.data?.length === 0 ? (
-            <>
-              <ProductEmptyState />
-            </>
+            <ProductEmptyState />
           ) : (
-            data?.data?.map((item, index) => (
+            data.data.map((item, index) => (
               <ProductRow key={item.id} item={item} index={index} />
             ))
           )}
         </tbody>
-      </table>
 
-      {(
-        <Pagination
-          moduleName={"products"}
-          links={data?.links}
-          meta={data?.meta}
-          met={data?.meta}
-          updateFetchUrl={updateFetchUrl}
-        />
-      )}
+        <tfoot className="bg-gray-50 dark:bg-gray-700">
+          <tr>
+            <td colSpan={5} className="px-6 py-4 text-center">
+              <Pagination
+                moduleName="products"
+                links={data?.links}
+                meta={data?.meta}
+                updateFetchUrl={updateFetchUrl}
+              />
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 };

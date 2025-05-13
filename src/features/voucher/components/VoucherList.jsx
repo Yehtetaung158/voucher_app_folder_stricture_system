@@ -57,7 +57,6 @@ const VoucherList = () => {
     setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers?${sortParams}`);
   };
 
-
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div className="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 px-2 bg-white dark:bg-gray-900 mb-3">
@@ -84,9 +83,9 @@ const VoucherList = () => {
           )}
         </div>
 
-        <div>
+        {/* <div>
           <Link
-            to="/dashboard/products/create"
+            to="/dashboard/voucher/create"
             id="dropdownActionButton"
             data-dropdown-toggle="dropdownAction"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex gap-2 items-center"
@@ -96,26 +95,26 @@ const VoucherList = () => {
             Add New Voucher
             <FaPlus />
           </Link>
-        </div>
+        </div> */}
       </div>
 
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"id"} >
-              #
-            </Sortable>
+              <Sortable handleSort={handleSort} sort_by={"id"}>
+                #
+              </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"customer_name"} >
-              Customer Name
-            </Sortable>
+              <Sortable handleSort={handleSort} sort_by={"customer_name"}>
+                Customer Name
+              </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
-            <Sortable handleSort={handleSort} sort_by={"customer_email"} >
-              Email
-            </Sortable>
+              <Sortable handleSort={handleSort} sort_by={"customer_email"}>
+                Email
+              </Sortable>
             </th>
             <th scope="col" className="px-6 py-3">
               Create_at
@@ -138,17 +137,22 @@ const VoucherList = () => {
             ))
           )}
         </tbody>
+        <tfoot className="bg-gray-50 dark:bg-gray-700">
+          <tr>
+            <td colSpan={5} className="px-6 py-4 text-center">
+              {
+                <Pagination
+                  moduleName={"vouchers"}
+                  links={data?.links}
+                  meta={data?.meta}
+                  met={data?.meta}
+                  updateFetchUrl={updateFetchUrl}
+                />
+              }
+            </td>
+          </tr>
+        </tfoot>
       </table>
-
-      {(
-        <Pagination
-          moduleName={"vouchers"}
-          links={data?.links}
-          meta={data?.meta}
-          met={data?.meta}
-          updateFetchUrl={updateFetchUrl}
-        />
-      )}
     </div>
   );
 };

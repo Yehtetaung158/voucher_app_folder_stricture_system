@@ -22,9 +22,13 @@ const DashboardLaoud = () => {
   }
   return (
     <Container>
-      <Header />
+      <div className=" max-sm:px-2">
+        <Header />
+      </div>
       <Suspense fallback={<PageLoading />}>
-        <Outlet />
+        <div className=" max-sm:px-2">
+          <Outlet />
+        </div>
       </Suspense>
     </Container>
   );

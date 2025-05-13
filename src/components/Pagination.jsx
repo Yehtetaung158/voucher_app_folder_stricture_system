@@ -44,18 +44,18 @@ const Pagination = ({
     );
   };
   return (
-    <div className="flex justify-between items-center px-6">
+    <div className="flex justify-start items-center px-6 max-sm:px-1  w-full">
       {/* Help text */}
-      <span className="text-sm text-gray-700 dark:text-gray-400">
-        Showing <b>{from ?? 0}</b> to <b>{to ?? 0}</b> of <b>{total ?? 0}</b>{" "}
+      <span className="text-sm max-sm:text-xs text-gray-700 dark:text-gray-400 max-sm:mr-2">
+         <b>{from ?? 0}</b> to <b>{to ?? 0}</b> of <b>{total ?? 0}</b>{" "}
         Entries
       </span>
       {/* Buttons */}
-      <div className=" flex gap-2 justify-center items-center">
+      <div className=" flex gap-2 justify-center items-center ">
         <div className=" flex items-center gap-2">
           <label
             htmlFor="countries"
-            className="block text-gray-700 text-sm text-nowrap dark:text-white"
+            className="block text-gray-700 text-sm text-nowrap dark:text-white max-sm:text-xs"
           >
             Rows per page
           </label>
@@ -75,8 +75,8 @@ const Pagination = ({
             {total && <option value={total}>All ({total})</option>}
           </select>
         </div>
-        <div className="text-sm text-gray-700 dark:text-gray-400">
-          Showing <b>{current_page ?? 0}</b> page of <b>{last_page ?? 0}</b>{" "}
+        <div className="text-sm max-sm:text-xs text-gray-700 dark:text-gray-400">
+           <b>{current_page ?? 0}</b> / <b>{last_page ?? 0}</b>{""}
           pages
         </div>
         <div className="inline-flex mt-2 xs:mt-0">

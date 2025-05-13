@@ -3,13 +3,13 @@ import Container from "../../dashboard/components/Container";
 import BreadCrumb from "../../../components/BreadCrumb";
 import ProductCreateFrom from "../components/ProductCreateFrom";
 
-const ProductCreatePage = () => {
+const VoucherCreatePage = () => {
   return (
     <section>
       <Container>
         <BreadCrumb
-          currentPage={"Create Product"}
-          links={[{ title: "Product", path: "/dashboard/products" }]}
+          currentPage={"Create Voucher"}
+          links={[{ title: "Voucher", path: "/dashboard/voucher" }]}
         />
         <ProductCreateFrom/>
       </Container>
@@ -17,4 +17,4 @@ const ProductCreatePage = () => {
   );
 };
 
-export default ProductCreatePage;
+export default VoucherCreatePage;
