@@ -130,7 +130,7 @@ const ProductList = () => {
           ) : data?.data?.length === 0 ? (
             <ProductEmptyState />
           ) : (
-            data.data.map((item, index) => (
+            data?.data.map((item, index) => (
               <ProductRow key={item.id} item={item} index={index} />
             ))
           )}
