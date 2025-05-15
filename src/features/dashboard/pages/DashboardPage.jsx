@@ -14,9 +14,9 @@ import { HiHome } from "react-icons/hi";
 
 const DashboardPage = () => {
   return (
-    <section>
+    <section >
       <Container>
-        <div className=" grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div className=" grid grid-cols-2  md:grid-cols-4 gap-5">
           <div>
             <ModuleBtn
               name={"Product"}

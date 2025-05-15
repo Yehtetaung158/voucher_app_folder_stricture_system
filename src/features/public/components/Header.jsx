@@ -6,19 +6,17 @@ import { useCookies } from "react-cookie";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser, removerUser } = useUserStore(); 
-  // const [cookies, setCookie, removeCookie] = useCookies(["user", "token"]); 
+  const { user, setUser, removerUser } = useUserStore();
+  // const [cookies, setCookie, removeCookie] = useCookies(["user", "token"]);
 
-
-
-  // const userCookies = cookies.user || null; 
+  // const userCookies = cookies.user || null;
   // useEffect(() => {
   //   if (userCookies) {
-  //     setUser({ user: userCookies }); 
+  //     setUser({ user: userCookies });
   //   } else {
   //     setUser({ user: null });
   //   }
-  // }, [userCookies, setUser]); 
+  // }, [userCookies, setUser]);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -28,7 +26,6 @@ const Header = () => {
   //   removeCookie("token");
   //   removerUser();
   // };
-
 
   const UserProfile = () => (
     <div className="flex gap-5 items-center">
@@ -41,7 +38,7 @@ const Header = () => {
         alt="user profile"
       />
       <div>
-        <h1 className="text-3xl font-bold">{user?.name}</h1>
+        <h1 className="text-3xl max-sm:text-xl font-bold">{user?.name}</h1>
       </div>
     </div>
   );
@@ -107,27 +104,35 @@ const Header = () => {
               </Link>
             </div>
           )}
+          {user && (
+            <NavLink
+              to="/dashboard"
+              className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 lg:hover:bg-transparent underline"
+            >
+              Dashboard
+            </NavLink>
+          )}
         </div>
 
-        <button
+        {/* <button
           type="button"
           className="relative inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           onClick={toggleDropdown}
         >
           <BiMenu className="w-6 h-6" />
-        </button>
+        </button> */}
 
-        {isOpen && (
+        {/* {isOpen && (
           <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
             <NavLinks />
           </div>
-        )}
+        )} */}
 
-        <div className="hidden lg:flex lg:items-center lg:justify-between w-full lg:w-auto">
+        {/* <div className="hidden lg:flex lg:items-center lg:justify-between w-full lg:w-auto">
           <ul className="flex space-x-8 mt-0 font-medium">
             <NavLinks />
           </ul>
-        </div>
+        </div> */}
       </nav>
     </header>
   );

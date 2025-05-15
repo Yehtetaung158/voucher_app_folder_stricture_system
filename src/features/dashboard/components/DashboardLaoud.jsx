@@ -21,16 +21,18 @@ const DashboardLaoud = () => {
     nav("/");
   }
   return (
-    <Container>
-      <div className=" max-sm:px-2">
-        <Header />
-      </div>
-      <Suspense fallback={<PageLoading />}>
+    <main className="bg-white min-h-screen">
+      <Container>
         <div className=" max-sm:px-2">
-          <Outlet />
+          <Header />
         </div>
-      </Suspense>
-    </Container>
+        <Suspense fallback={<PageLoading />}>
+          <div className=" max-sm:px-2">
+            <Outlet />
+          </div>
+        </Suspense>
+      </Container>
+    </main>
   );
 };
 
